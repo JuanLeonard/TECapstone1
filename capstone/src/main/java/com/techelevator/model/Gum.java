@@ -1,4 +1,4 @@
-package capstone;
+package com.techelevator.model;
 
 public class Gum extends Product {
 }
