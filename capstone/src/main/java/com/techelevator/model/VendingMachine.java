@@ -6,16 +6,16 @@ import java.util.List;
 
 public class VendingMachine {
 
-   private double totalBalance;
-   private double fedMoney;
-   private double change;
+   private int totalBalance;
+   private int fedMoney;
+   private int change;
    private List<Product> productList;
 
    //Getters
-    public double getTotalBalance() {
+    public int getTotalBalance() {
         return totalBalance;
     }
-    public double getFedMoney() {
+    public int getFedMoney() {
         return fedMoney;
     }
 
@@ -24,42 +24,39 @@ public class VendingMachine {
     }
 
     //Constructor
-    public VendingMachine(double totalBalance, double fedMoney){
+    public VendingMachine(int totalBalance, int fedMoney){
         this.totalBalance = totalBalance;
         this.fedMoney = fedMoney;
-        this.totalBalance = 0.00;
-        this.fedMoney = 0.00;
+        this.totalBalance = 0;
+        this.fedMoney =  0;
         this.productList = new ArrayList<>();
 
     }
 
     //Setters
 
-    public void setTotalBalance(double totalBalance) {
+    public void setTotalBalance(int totalBalance) {
         this.totalBalance = totalBalance;
     }
-    public void setFedMoney(double fedMoney) {
+    public void setFedMoney(int fedMoney) {
         this.fedMoney = fedMoney;
     }
-    public void setChange(double change) {
-        change = totalBalance - fedMoney;
-        double totalCoins = 0;
-//        double quarter = .25;
-//        double dime = .10;
-//        double nickel = .05;
-//        double penny = .01;
-        if(change % .25 == 0){
-            totalCoins++;
-        }
-        if(change % .10 == 0){
-            totalCoins++;
-        }
-        if(change % .05 == 0){
-            totalCoins++;
-        }
-        if(change % .01 == 0){
-            totalCoins++;
-        }
+    public void setChange(int change) {
+         change = totalBalance - fedMoney;
+        int totalCoins = 0;
+        int quarter = 25;
+        int dime = 10;
+        int nickel = 5;
+
+        quarter = change / 25;
+        change = change % 25;
+        dime = change / 10;
+        change = change % 10;
+        nickel = change / 5;
+        change = change % 5;
+
+        int changeBack = quarter + dime + nickel;
+
 
     }
 
