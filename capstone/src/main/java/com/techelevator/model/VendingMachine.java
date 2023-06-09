@@ -62,6 +62,7 @@ public class VendingMachine {
 
 
     }
+
 }
 
 //    HashMap<String, String> productMap = new HashMap<>();
