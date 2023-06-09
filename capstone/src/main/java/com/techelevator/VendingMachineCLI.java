@@ -55,9 +55,13 @@ public class VendingMachineCLI {
                 }
 
                 //Option 2) Purchase
-            } else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
+            } while (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
+                double currentMoneyProvided = 0.00;
+                VendingMachine money = new VendingMachine(0, 5);
+
                 System.out.println();
-                System.out.println("Current Money Provided: $0.00");
+                System.out.print("Current Money Provided: $");
+                System.out.printf("%.2f%n", currentMoneyProvided);
                 String purchaseChoice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
                 if (purchaseChoice.equals(PURCHASE_MENU_OPTION_FEED_MONEY)) {
                     System.out.println();
@@ -67,16 +71,17 @@ public class VendingMachineCLI {
                         if (userMoney.contains(".")) {
                             //System.out.println("ERROR: Wrong number format. Use penny math ($1.00 = 100)");
                         }
-                        Integer currentMoneyProvided = Integer.parseInt(userMoney);
+                        Integer fedMoney = Integer.parseInt(userMoney);
                         if (currentMoneyProvided > 2000) {
                             System.out.println("ERROR: Exceeds max amount. Enter an amount less than $20.");
                         }
                     } catch (NumberFormatException e) {
                         System.out.println("ERROR: Wrong number format. Use penny math ($1.00 = 100)");
                     }
-                    System.out.println(purchaseChoice);
+//                    double wholeNum = Double.parseDouble(userInput.nextLine());
+//                    currentMoneyProvided += wholeNum;
                 }
-                System.out.println(purchaseChoice);
+
                 if (purchaseChoice.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)) {
                     System.out.println();
 
@@ -127,6 +132,11 @@ public class VendingMachineCLI {
             cli.run();
         }
     }
+
+//    else if (choice.equals(MAIN_MENU_OPTION_EXIT)){
+//            System.out.println();
+//            System.out.println("Thank you,have a great day! :)");
+//            false;
 
 
 
