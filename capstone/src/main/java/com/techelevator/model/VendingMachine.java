@@ -2,14 +2,16 @@ package com.techelevator.model;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class VendingMachine {
 
    private int totalBalance;
    private int fedMoney;
    private int change;
-   private List<Product> productList;
+   private Map<String, Double> productList = new HashMap<>();
 
    //Getters
     public int getTotalBalance() {
@@ -29,7 +31,7 @@ public class VendingMachine {
         this.fedMoney = fedMoney;
         this.totalBalance = 0;
         this.fedMoney =  0;
-        this.productList = new ArrayList<>();
+        this.productList = new HashMap<>();
 
     }
 

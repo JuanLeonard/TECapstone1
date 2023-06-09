@@ -1,6 +1,6 @@
 package com.techelevator;
 
-import com.techelevator.model.PurchaseProcessMenu;
+//import com.techelevator.model.PurchaseProcessMenu;
 import com.techelevator.model.VendingMachine;
 import com.techelevator.view.Menu;
 
@@ -24,53 +24,54 @@ public class VendingMachineCLI {
 	private static final String[] PURCHASE_MENU_OPTIONS = {PURCHASE_MENU_OPTION_FEED_MONEY, PURCHASE_MENU_OPTION_SELECT_PRODUCT, PURCHASE_MENU_OPTION_FINISH_TRANSACTION};
 
 	private Menu menu;
-	private PurchaseProcessMenu purchaseProcessMenu;
 
 	public VendingMachineCLI(Menu menu) {
 		this.menu = menu;
-	}
-
-	public PurchaseProcessMenu getPurchaseProcessMenu() {
-		return purchaseProcessMenu;
 	}
 
 	public void run()  {
 		Scanner userInput = new Scanner(System.in);
 		String filePath = "vendingmachine.csv";
 		File pathFile = new File(filePath);
-
-
-
+			System.out.println("Welcome to the Vendo-Matic 800.");
+			System.out.println("Powered by Umbrella Corp.");
+			System.out.println();
 
 		while (true) {
-//			System.out.println("Welcome to the Vendo-Matic 800.");
-//			System.out.println("Powered by Umbrella Corp.");
-//			System.out.println();
 			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
 
+			//Option 1) Display Vending Machine Items
 			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
 			try(Scanner scanner = new Scanner(pathFile)) {
+				System.out.println();
 				while (scanner.hasNextLine()) {
 					String lineOfText = scanner.nextLine();
 					System.out.println(lineOfText);// display vending machine items
 				}
-
-
 			} catch (FileNotFoundException e){
 				System.out.println(e.getMessage());
 			}
+
+			//Option 2) Purchase
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
-				String purchaseChoice = (String) purchaseProcessMenu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
-				if (choice.equals(PURCHASE_MENU_OPTION_FEED_MONEY)){
-					System.out.println("Feed Money into the Vending Machine using Whole Dollars and type in the amount given");
-					String userMoney = userInput.nextLine();
-				}
-
-
-				try {
-//					.getFedMoney = Integer.parseInt(userMoney);
-				} catch (NumberFormatException e) {
-					System.out.println(e.getMessage());
+				System.out.println();
+				System.out.println("Current Money Provided: $0.00");
+				String purchaseChoice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
+				if (purchaseChoice.equals(PURCHASE_MENU_OPTION_FEED_MONEY)) {
+					System.out.println();
+					try {
+						System.out.print("Feed money into vending machine using penny math. Ex. $1.00 = 100 (Max amount $20): ");
+						String userMoney = userInput.nextLine();
+						if (userMoney.contains(".")) {
+							//System.out.println("ERROR: Wrong number format. Use penny math ($1.00 = 100)");
+						}
+						Integer currentMoneyProvided = Integer.parseInt(userMoney);
+						if (currentMoneyProvided > 2000) {
+							System.out.println("ERROR: Exceeds max amount. Enter an amount less than $20.");
+						}
+					} catch (NumberFormatException e) {
+						System.out.println("ERROR: Wrong number format. Use penny math ($1.00 = 100)");
+					}
 				}
 
 
