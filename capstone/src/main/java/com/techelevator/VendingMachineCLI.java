@@ -82,27 +82,28 @@ public class VendingMachineCLI {
 
                     //Empty Map
                     HashMap<String, String> productMap = new HashMap<>();
-                    String slotLocation;
-                    String name;
-                    String price;
-                    String item;
 
-                    Scanner scanner = null;
-                    try {
-                        scanner = new Scanner(pathFile).useDelimiter("|");
-                    } catch (FileNotFoundException e) {
-                        throw new RuntimeException(e);
-                    }
-                    System.out.println();
+
+                    try (Scanner scanner = new Scanner(pathFile).useDelimiter("|")) {
+                        System.out.println();
+                        while (scanner.hasNextLine()) {
+                            String slotLocation;
+                            String name;
+                            String price;
+                            String item;
 
                             String lineOfText = scanner.nextLine();
                             slotLocation = scanner.next();
                             name = scanner.next();
                             price = scanner.next();
                             item = scanner.next();// display vending machine items
-                            String productDisplay = productMap.put(slotLocation, price);
+                            productMap.put(slotLocation, price);
 
 
+                        }
+                    } catch (FileNotFoundException e){
+                        System.out.println(e.getMessage());
+                    }
                     System.out.println(productMap.get(slotLocation) + productMap.get(price));
                         System.out.println();
 
