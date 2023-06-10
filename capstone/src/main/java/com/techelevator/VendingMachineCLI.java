@@ -3,6 +3,7 @@ package com.techelevator;
 //import com.techelevator.model.PurchaseProcessMenu;
 
 import com.techelevator.model.Chips;
+import com.techelevator.model.Inventory;
 import com.techelevator.model.Product;
 import com.techelevator.model.VendingMachine;
 import com.techelevator.view.Menu;
@@ -88,52 +89,10 @@ public class VendingMachineCLI {
                 }
 
                 if (purchaseChoice.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)) {
-                    System.out.println();
-
-                    //Empty Map
-                    Map<String, Product> productMap = new HashMap<>();
-
-                    String slotLocation = " ";
-                    String name;
-                    Double price = 0.00;
-                    String item;
-
-                    try (Scanner scanner = new Scanner(pathFile)) {
-                        System.out.println();
-                        while (scanner.hasNextLine()) {
-
-
-                            String lineOfText = scanner.nextLine();
-                            String[] productFile = lineOfText.split("\\|");
-                            slotLocation =productFile[0];
-                            name = productFile[1];
-                            price =Double.parseDouble(productFile[2]);
-                            item = productFile[3];// display vending machine items
-
-                            if(item.equals("Chip")){
-                                Chips chips = new Chips(name,price,slotLocation,item);
-                                productMap.put(slotLocation, chips);
-                            }
-
-
-
-
-
-
-                        }
-                    } catch (FileNotFoundException e){
-                        System.out.println(e.getMessage());
-                    }
-//                    System.out.println(productMap.get(slotLocation) + productMap.get(price));
-                        System.out.println();
-
-
                             System.out.println("Please enter slot location using Capital Letters example: A1");
                             String userProductChoice = userInput.nextLine();
-
-                            if (!userProductChoice.equals(productMap)) {
-
-                            }
+                            Inventory inventory = new Inventory(this.productMap );
+                            Map<String,Product>productList = inventory.getProductMap();
 
 
                     }

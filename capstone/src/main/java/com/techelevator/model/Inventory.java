@@ -6,15 +6,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-public class Inventory  {
+public class Inventory {
     private Map<String, Product> productMap = new HashMap<>();
 
-    public Map<String, Product> getProductMap() {
-        return productMap;
+
+    public Inventory(Map<String, Product> productMap) {
+        this.productMap = productMap;
     }
 
-
-    public void getProductionMap() {
+    public Map<String, Product> getProductMap() {
         String slotLocation = " ";
         String name;
         Double price = 0.00;
@@ -49,8 +49,18 @@ public class Inventory  {
                 }
             }
         } catch (FileNotFoundException e) {
-
+            System.out.println(e.getMessage());
         }
+        return productMap;
     }
 
+    public void setProductMap(Map<String, Product> productMap) {
+        this.productMap = productMap;
+    }
+
+//    public Map<String, Product> productMap() {
+//
+//        return productMap;
+//    }
 }
+
