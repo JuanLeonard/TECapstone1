@@ -2,6 +2,8 @@ package com.techelevator;
 
 //import com.techelevator.model.PurchaseProcessMenu;
 
+import com.techelevator.model.Chips;
+import com.techelevator.model.Product;
 import com.techelevator.model.VendingMachine;
 import com.techelevator.view.Menu;
 
@@ -10,6 +12,7 @@ import java.io.FileNotFoundException;
 import java.nio.file.Path;
 import java.sql.SQLOutput;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class VendingMachineCLI {
@@ -56,8 +59,8 @@ public class VendingMachineCLI {
 
                 //Option 2) Purchase
             } while (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
-                double currentMoneyProvided = 0.00;
                 VendingMachine money = new VendingMachine(0, 5);
+                double currentMoneyProvided = money.getTotalBalance();
 
                 System.out.println();
                 System.out.print("Current Money Provided: $");
@@ -86,30 +89,40 @@ public class VendingMachineCLI {
                     System.out.println();
 
                     //Empty Map
-                    HashMap<String, String> productMap = new HashMap<>();
+                    Map<String, Product> productMap = new HashMap<>();
 
+                    String slotLocation = " ";
+                    String name;
+                    Double price = 0.00;
+                    String item;
 
-                    try (Scanner scanner = new Scanner(pathFile).useDelimiter("|")) {
+                    try (Scanner scanner = new Scanner(pathFile)) {
                         System.out.println();
                         while (scanner.hasNextLine()) {
-                            String slotLocation;
-                            String name;
-                            String price;
-                            String item;
+
 
                             String lineOfText = scanner.nextLine();
-                            slotLocation = scanner.next();
-                            name = scanner.next();
-                            price = scanner.next();
-                            item = scanner.next();// display vending machine items
-                            productMap.put(slotLocation, price);
+                            String[] productFile = lineOfText.split("\\|");
+                            slotLocation =productFile[0];
+                            name = productFile[1];
+                            price =Double.parseDouble(productFile[2]);
+                            item = productFile[3];// display vending machine items
+
+                            if(item.equals("Chip")){
+                                Chips chips = new Chips(name,price,slotLocation,item);
+                                productMap.put(slotLocation, chips);
+                            }
+
+
+
+
 
 
                         }
                     } catch (FileNotFoundException e){
                         System.out.println(e.getMessage());
                     }
-                    System.out.println(productMap.get(slotLocation) + productMap.get(price));
+//                    System.out.println(productMap.get(slotLocation) + productMap.get(price));
                         System.out.println();
 
 
