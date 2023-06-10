@@ -6,9 +6,9 @@ import java.util.*;
 
 public class VendingMachine {
 
-    private int totalBalance;
-    private int fedMoney;
-    private int change;
+    private int totalBalance; //This will be the sum of all vending items the user selects.
+    private int moneyProvided; //This will be the money the user feeds into the machine.
+    private int change; //Remaining money from user's transactions.
     private Map<String, Double> productList = new HashMap<>();
 
     //Getters
@@ -16,8 +16,8 @@ public class VendingMachine {
         return totalBalance;
     }
 
-    public int getFedMoney() {
-        return fedMoney;
+    public int getMoneyProvided() {
+        return moneyProvided;
     }
 
     public double getChange() {
@@ -25,11 +25,10 @@ public class VendingMachine {
     }
 
     //Constructor
-    public VendingMachine(int totalBalance, int fedMoney) {
+    public VendingMachine(int totalBalance, int moneyProvided) {
         this.totalBalance = totalBalance;
-        this.fedMoney = fedMoney;
-        this.totalBalance = 0;
-        this.fedMoney = 0;
+        this.moneyProvided = 0;
+        this.change = 0;
         this.productList = new HashMap<>();
 
     }
@@ -40,12 +39,15 @@ public class VendingMachine {
         this.totalBalance = totalBalance;
     }
 
-    public void setFedMoney(int fedMoney) {
-        this.fedMoney = fedMoney;
+    public void setMoneyProvided(int moneyProvided) {
+        if (moneyProvided > 2000){
+            throw new IllegalArgumentException();
+        }
+        System.out.println("You've reached the limit. Time to pick an item!");
     }
 
     public void setChange(int change) {
-        change = totalBalance - fedMoney;
+        change = moneyProvided - totalBalance;
         int totalCoins = 0;
         int quarter = 25;
         int dime = 10;

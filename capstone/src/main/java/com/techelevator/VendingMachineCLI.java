@@ -38,6 +38,7 @@ public class VendingMachineCLI {
         Scanner userInput = new Scanner(System.in);
         String filePath = "vendingmachine.csv";
         File pathFile = new File(filePath);
+
         System.out.println("Welcome to the Vendo-Matic 800.");
         System.out.println("Powered by Umbrella Corp.");
         System.out.println();
@@ -59,13 +60,14 @@ public class VendingMachineCLI {
 
                 //Option 2) Purchase
             } while (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
-                VendingMachine money = new VendingMachine(0, 5);
+                VendingMachine money = new VendingMachine(0, 0);
                 double currentMoneyProvided = money.getTotalBalance();
 
                 System.out.println();
                 System.out.print("Current Money Provided: $");
                 System.out.printf("%.2f%n", currentMoneyProvided);
                 String purchaseChoice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
+
                 if (purchaseChoice.equals(PURCHASE_MENU_OPTION_FEED_MONEY)) {
                     System.out.println();
                     try {
@@ -75,7 +77,7 @@ public class VendingMachineCLI {
                             //System.out.println("ERROR: Wrong number format. Use penny math ($1.00 = 100)");
                         }
                         Integer fedMoney = Integer.parseInt(userMoney);
-                        if (currentMoneyProvided > 2000) {
+                        if (fedMoney > 2000) {
                             System.out.println("ERROR: Exceeds max amount. Enter an amount less than $20.");
                         }
                     } catch (NumberFormatException e) {
@@ -135,7 +137,20 @@ public class VendingMachineCLI {
 
 
                     }
+                if (purchaseChoice.equals(PURCHASE_MENU_OPTION_FINISH_TRANSACTION)){
+                    System.out.println();
+                    System.out.println("Thanks! Here's your change: " + money.getChange());
+                    System.out.println();
+                    break;
                 }
+
+                }
+            if (choice.equals(MAIN_MENU_OPTION_EXIT)){
+                System.out.println();
+                System.out.println("Thanks for using the Vendo-Matic 800.");
+                System.out.println("Have a good day!");
+                break;
+            }
             }
         }
 
