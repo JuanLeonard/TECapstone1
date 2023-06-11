@@ -97,22 +97,29 @@ public class VendingMachineCLI {
                 }
 
                 if (purchaseChoice.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)) {
-                    System.out.println();
-                    System.out.print("Please enter slot location using Capital Letters (Ex. A1): ");
-                    String userProductChoice = userInput.nextLine();
-                    Product product = productList.get(userProductChoice);//Create a product class instance that use's the user's input to retrieve item info.
-                    double itemPrice = product.getPrice();
-                    System.out.println();
-                    System.out.println(product.getName());
-                    System.out.println("$" + String.format("%.2f", product.getPrice()));
-                    System.out.println(product.getMessage());
-                    System.out.println();
-                    double runningTotal = currentMoneyProvided - itemPrice;
-                    vendingMachine.setVendingBalance(runningTotal);
-                    VMLog.log(product.getName() + " " + userProductChoice + " $" + String.format("%.2f", product.getPrice()) + " $" + String.format("%.2f",runningTotal));
-                    System.out.println("Would you like anything else?");
+                        System.out.print("Please enter slot location using Capital Letters (Ex. A1): ");
+                        String userProductChoice = userInput.nextLine();
+                        if(!productList.containsKey(userProductChoice)) {
+                            System.out.println("ERROR: CODE INVALID");
+                        } else {
+                            Product product = productList.get(userProductChoice);//Create a product class instance that use's the user's input to retrieve item info.
+                            double itemPrice = product.getPrice();
+                            if(vendingMachine.sufficentFunds(itemPrice)) {
 
+                                System.out.println();
+                                System.out.println(product.getName());
+                                System.out.println("$" + String.format("%.2f", product.getPrice()));
+                                System.out.println(product.getMessage());
+                                System.out.println();
+                                double runningTotal = currentMoneyProvided - itemPrice;
+                                vendingMachine.setVendingBalance(runningTotal);
+                                VMLog.log(product.getName() + " " + userProductChoice + " $" + String.format("%.2f", product.getPrice()) + " $" + String.format("%.2f", runningTotal));
+                                System.out.println("Would you like anything else?");
+                            } else {
+                                System.out.println("ERROR:INSUFFICIANT FUNDS");
+                            }
 
+                        }
 
                     }
                 if (purchaseChoice.equals(PURCHASE_MENU_OPTION_FINISH_TRANSACTION)){

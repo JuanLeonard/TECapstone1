@@ -98,6 +98,11 @@ public class VendingMachine {
         System.out.println("Nickels: " + convNickel);
     }
 
+
+    public boolean sufficentFunds(double purchaseAmount){
+        return vendingBalance - purchaseAmount >= 0;
+    }
+
 }
 
 //    HashMap<String, String> productMap = new HashMap<>();
