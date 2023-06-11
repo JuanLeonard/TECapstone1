@@ -61,14 +61,13 @@ public class VendingMachine {
     }
 
     public void setMoneyProvided(int moneyProvided) {
-        if (moneyProvided > 2000){
-            throw new IllegalArgumentException("You've reached the limit. Time to pick an item!");
-        }
+//        if (moneyProvided > 2000){
+//            throw new IllegalArgumentException("You've reached the limit. Time to pick an item!");
+//        }
 
     }
 
-
-    public void addMoney(int moneyProvided){
+    public void addMoney(double moneyProvided){
         vendingBalance += moneyProvided;
     }
     public void addItemSum(int itemSum){

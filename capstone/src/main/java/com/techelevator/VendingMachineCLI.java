@@ -7,8 +7,10 @@ import com.techelevator.view.Menu;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.math.BigDecimal;
 import java.nio.file.Path;
 import java.sql.SQLOutput;
+import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -69,8 +71,8 @@ public class VendingMachineCLI {
                 double currentMoneyProvided = vendingMachine.getVendingBalance();
 
                 System.out.println();
-                System.out.print("Current Money Provided: $");
-                System.out.printf("%.2f%n", currentMoneyProvided);
+                System.out.print("Current Money Provided: $" + String.format("%.2f",currentMoneyProvided));
+                System.out.println();
                 String purchaseChoice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
 
 
@@ -81,13 +83,13 @@ public class VendingMachineCLI {
                         String userMoney = userInput.nextLine();
                         if (userMoney.contains(".")) {
                         }
-                        Integer convertedMoney = Integer.parseInt(userMoney);//Converts String into integer
+                        Double convertedMoney = Double.parseDouble(userMoney);//Converts String into integer
 //                        if (convertedMoney > 20) {
 //                            System.out.println("ERROR: Exceeds max amount. Enter an amount less than $20.");
 //                        }
                         vendingMachine.addMoney(convertedMoney);//Adds money to the balance
                         System.out.println();
-                        VMLog.log("FEED MONEY" + userMoney + " " + userMoney);
+                        VMLog.log("FEED MONEY: $" + String.format("%.2f",convertedMoney) + " $" + String.format("%.2f",currentMoneyProvided + convertedMoney));
                     } catch (NumberFormatException e) {
                         System.out.println("ERROR: Wrong number format. Use whole numbers (1 = $1.00)");
                     }
@@ -102,12 +104,12 @@ public class VendingMachineCLI {
                     double itemPrice = product.getPrice();
                     System.out.println();
                     System.out.println(product.getName());
-                    System.out.print("$");
-                    System.out.printf("%.2f%n", product.getPrice());
+                    System.out.println("$" + String.format("%.2f", product.getPrice()));
                     System.out.println(product.getMessage());
                     System.out.println();
                     double runningTotal = currentMoneyProvided - itemPrice;
                     vendingMachine.setVendingBalance(runningTotal);
+                    VMLog.log(product.getName() + " " + userProductChoice + " $" + String.format("%.2f", product.getPrice()) + " $" + String.format("%.2f",runningTotal));
                     System.out.println("Would you like anything else?");
 
 
@@ -120,6 +122,7 @@ public class VendingMachineCLI {
                     vendingMachine.setChange(currentMoneyProvided);
                     vendingMachine.setVendingBalance(0.0);
                     System.out.println();
+                    VMLog.log("GIVE CHANGE: $" + String.format("%.2f",currentMoneyProvided) + " $" + String.format("%.2f",vendingMachine.getChange()));
                     break;
                 }
 

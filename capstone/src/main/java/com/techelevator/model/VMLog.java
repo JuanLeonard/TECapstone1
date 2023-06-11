@@ -21,13 +21,15 @@ public class VMLog {
                 logFilename.createNewFile();
                 pw = new PrintWriter(new FileOutputStream(logFilename));
             }
-            pw.println(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE) + " " + message);
-            pw.flush();
+
         }catch (FileNotFoundException e){
             throw new RuntimeException(e.getMessage());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        //Took this outside of the try loop because it would never print the first user transaction.
+        pw.println(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE) + " " + message);
+        pw.flush();
 
     }
 }
