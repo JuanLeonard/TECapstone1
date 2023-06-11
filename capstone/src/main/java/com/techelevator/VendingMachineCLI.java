@@ -91,7 +91,7 @@ public class VendingMachineCLI {
                         System.out.println();
                         VMLog.log("FEED MONEY: $" + String.format("%.2f",convertedMoney) + " $" + String.format("%.2f",currentMoneyProvided + convertedMoney));
                     } catch (NumberFormatException e) {
-                        System.out.println("ERROR: Wrong number format. Use whole numbers (1 = $1.00)");
+                        System.out.println("ERROR: WRONG NUMBER FORMAT. Use whole numbers (1 = $1.00)");
                     }
 
                 }
@@ -116,7 +116,7 @@ public class VendingMachineCLI {
                                 VMLog.log(product.getName() + " " + userProductChoice + " $" + String.format("%.2f", product.getPrice()) + " $" + String.format("%.2f", runningTotal));
                                 System.out.println("Would you like anything else?");
                             } else {
-                                System.out.println("ERROR:INSUFFICIANT FUNDS");
+                                System.out.println("ERROR: INSUFFICIENT FUNDS");
                             }
 
                         }
