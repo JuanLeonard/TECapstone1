@@ -52,8 +52,6 @@ public class VendingMachineCLI {
 
         while (true) {
             String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
-
-            //Option 1) Display Vending Machine Items
             if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
                 try (Scanner scanner = new Scanner(pathFile)) {
                     System.out.println();
@@ -64,8 +62,6 @@ public class VendingMachineCLI {
                 } catch (FileNotFoundException e) {
                     System.out.println(e.getMessage());
                 }
-
-                //Option 2) Purchase
             } while (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
 
                 double currentMoneyProvided = vendingMachine.getVendingBalance();
@@ -75,27 +71,23 @@ public class VendingMachineCLI {
                 System.out.println();
                 String purchaseChoice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
 
-
                 if (purchaseChoice.equals(PURCHASE_MENU_OPTION_FEED_MONEY)) {
                     System.out.println();
                     try {
                         System.out.print("Feed money into vending machine using whole numbers (Ex. 1 = $1.00): ");
                         String userMoney = userInput.nextLine();
-                        if (userMoney.contains(".")) {
-                        }
+//                        if (userMoney.contains(".")) {
+//                        }
                         Double convertedMoney = Double.parseDouble(userMoney);//Converts String into integer
 //                        if (convertedMoney > 20) {
 //                            System.out.println("ERROR: Exceeds max amount. Enter an amount less than $20.");
 //                        }
                         vendingMachine.addMoney(convertedMoney);//Adds money to the balance
-                        System.out.println();
                         VMLog.log("FEED MONEY: $" + String.format("%.2f",convertedMoney) + " $" + String.format("%.2f",currentMoneyProvided + convertedMoney));
                     } catch (NumberFormatException e) {
                         System.out.println("ERROR: WRONG NUMBER FORMAT. Use whole numbers (1 = $1.00)");
                     }
-
                 }
-
                 if (purchaseChoice.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)) {
                     try (Scanner scanner = new Scanner(pathFile)) {
                         System.out.println();
@@ -125,11 +117,10 @@ public class VendingMachineCLI {
                                 VMLog.log(product.getName() + " " + userProductChoice + " $" + String.format("%.2f", product.getPrice()) + " $" + String.format("%.2f", runningTotal));
                                 System.out.println("Would you like anything else?");
                             } else {
+                                System.out.println();
                                 System.out.println("ERROR: INSUFFICIENT FUNDS");
                             }
-
                         }
-
                     }
                 if (purchaseChoice.equals(PURCHASE_MENU_OPTION_FINISH_TRANSACTION)){
                     System.out.println();
@@ -141,7 +132,6 @@ public class VendingMachineCLI {
                     VMLog.log("GIVE CHANGE: $" + String.format("%.2f",currentMoneyProvided) + " $" + String.format("%.2f",vendingMachine.getChange()));
                     break;
                 }
-
                 }
             if (choice.equals(MAIN_MENU_OPTION_EXIT)){
                 System.out.println();
@@ -152,7 +142,6 @@ public class VendingMachineCLI {
             }
         }
 
-//
         public static void main (String[]args){
             Menu menu = new Menu(System.in, System.out);
             VendingMachineCLI cli = new VendingMachineCLI(menu);
@@ -160,10 +149,6 @@ public class VendingMachineCLI {
         }
     }
 
-//    else if (choice.equals(MAIN_MENU_OPTION_EXIT)){
-//            System.out.println();
-//            System.out.println("Thank you,have a great day! :)");
-//            false;
 
 
 
