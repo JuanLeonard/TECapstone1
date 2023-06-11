@@ -2,10 +2,7 @@ package com.techelevator;
 
 //import com.techelevator.model.PurchaseProcessMenu;
 
-import com.techelevator.model.Chips;
-import com.techelevator.model.Inventory;
-import com.techelevator.model.Product;
-import com.techelevator.model.VendingMachine;
+import com.techelevator.model.*;
 import com.techelevator.view.Menu;
 
 import java.io.File;
@@ -76,6 +73,7 @@ public class VendingMachineCLI {
                 System.out.printf("%.2f%n", currentMoneyProvided);
                 String purchaseChoice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
 
+
                 if (purchaseChoice.equals(PURCHASE_MENU_OPTION_FEED_MONEY)) {
                     System.out.println();
                     try {
@@ -89,7 +87,7 @@ public class VendingMachineCLI {
 //                        }
                         vendingMachine.addMoney(convertedMoney);//Adds money to the balance
                         System.out.println();
-
+                        VMLog.log("FEED MONEY" + userMoney + " " + userMoney);
                     } catch (NumberFormatException e) {
                         System.out.println("ERROR: Wrong number format. Use whole numbers (1 = $1.00)");
                     }
