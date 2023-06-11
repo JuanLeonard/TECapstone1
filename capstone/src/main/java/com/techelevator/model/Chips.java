@@ -20,7 +20,7 @@ public class Chips extends Product{
     }
     @Override
     public String getMessage() {
-        return "Crunch Crunch, Yum";
+        return "Crunch Crunch, Yum!";
     }
 
     //Constructor from superclass

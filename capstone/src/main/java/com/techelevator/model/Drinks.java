@@ -20,7 +20,7 @@ public class Drinks extends Product{
     }
     @Override
     public String getMessage() {
-        return "Glug Glug, Yum";
+        return "Glug Glug, Yum!";
     }
 
     //Constructor from superclass

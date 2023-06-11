@@ -5,9 +5,12 @@ import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.TreeMap;
 
 public class Inventory {
-    private Map<String, Product> productMap = new HashMap<>();
+    private Map<String, Product> productMap = new TreeMap<>();
+
+    public Inventory(){}//Initial constructor
 
 
     public Inventory(Map<String, Product> productMap) {

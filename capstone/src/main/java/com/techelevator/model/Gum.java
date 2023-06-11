@@ -20,7 +20,7 @@ public class Gum extends Product {
     }
     @Override
     public String getMessage() {
-        return "Chew Chew, Yum";
+        return "Chew Chew, Yum!";
     }
 
     //Constructor from superclass

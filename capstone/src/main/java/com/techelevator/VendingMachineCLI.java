@@ -15,6 +15,7 @@ import java.sql.SQLOutput;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.TreeMap;
 
 public class VendingMachineCLI {
 
@@ -44,6 +45,12 @@ public class VendingMachineCLI {
         System.out.println("Powered by Umbrella Corp.");
         System.out.println();
 
+        Inventory currentInventory = new Inventory();//Created an instance of inventory to use later
+        VendingMachine vendingMachine = new VendingMachine(0, 0);//Initializes the vending machine balances
+        Map<String, Product> productList = new TreeMap<>();//Created an instance of the product map to be used later
+        vendingMachine.setInventoryMap(currentInventory);//Initializes the inventory before app start-up
+        productList = vendingMachine.getInventoryMap().getProductMap();//Variable allows us to call the inventory in the code
+
         while (true) {
             String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
 
@@ -61,8 +68,8 @@ public class VendingMachineCLI {
 
                 //Option 2) Purchase
             } while (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
-                VendingMachine money = new VendingMachine(0, 0);
-                double currentMoneyProvided = money.getTotalBalance();
+
+                double currentMoneyProvided = vendingMachine.getVendingBalance();
 
                 System.out.println();
                 System.out.print("Current Money Provided: $");
@@ -72,33 +79,48 @@ public class VendingMachineCLI {
                 if (purchaseChoice.equals(PURCHASE_MENU_OPTION_FEED_MONEY)) {
                     System.out.println();
                     try {
-                        System.out.print("Feed money into vending machine using penny math. Ex. $1.00 = 100 (Max amount $20): ");
+                        System.out.print("Feed money into vending machine using whole numbers (Ex. 1 = $1.00): ");
                         String userMoney = userInput.nextLine();
                         if (userMoney.contains(".")) {
-                            //System.out.println("ERROR: Wrong number format. Use penny math ($1.00 = 100)");
                         }
-                        Integer fedMoney = Integer.parseInt(userMoney);
-                        if (fedMoney > 2000) {
-                            System.out.println("ERROR: Exceeds max amount. Enter an amount less than $20.");
-                        }
+                        Integer convertedMoney = Integer.parseInt(userMoney);//Converts String into integer
+//                        if (convertedMoney > 20) {
+//                            System.out.println("ERROR: Exceeds max amount. Enter an amount less than $20.");
+//                        }
+                        vendingMachine.addMoney(convertedMoney);//Adds money to the balance
+                        System.out.println();
+
                     } catch (NumberFormatException e) {
-                        System.out.println("ERROR: Wrong number format. Use penny math ($1.00 = 100)");
+                        System.out.println("ERROR: Wrong number format. Use whole numbers (1 = $1.00)");
                     }
-//                    double wholeNum = Double.parseDouble(userInput.nextLine());
-//                    currentMoneyProvided += wholeNum;
+
                 }
 
                 if (purchaseChoice.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)) {
-                            System.out.println("Please enter slot location using Capital Letters example: A1");
-                            String userProductChoice = userInput.nextLine();
-                            Inventory inventory = new Inventory(this.productMap );
-                            Map<String,Product>productList = inventory.getProductMap();
+                    System.out.println();
+                    System.out.print("Please enter slot location using Capital Letters (Ex. A1): ");
+                    String userProductChoice = userInput.nextLine();
+                    Product product = productList.get(userProductChoice);//Create a product class instance that use's the user's input to retrieve item info.
+                    double itemPrice = product.getPrice();
+                    System.out.println();
+                    System.out.println(product.getName());
+                    System.out.print("$");
+                    System.out.printf("%.2f%n", product.getPrice());
+                    System.out.println(product.getMessage());
+                    System.out.println();
+                    double runningTotal = currentMoneyProvided - itemPrice;
+                    vendingMachine.setVendingBalance(runningTotal);
+                    System.out.println("Would you like anything else?");
+
 
 
                     }
                 if (purchaseChoice.equals(PURCHASE_MENU_OPTION_FINISH_TRANSACTION)){
                     System.out.println();
-                    System.out.println("Thanks! Here's your change: " + money.getChange());
+                    System.out.print("Thanks! Here's your change: $");
+                    System.out.printf("%.2f%n",vendingMachine.getChange());
+                    vendingMachine.setChange(currentMoneyProvided);
+                    vendingMachine.setVendingBalance(0.0);
                     System.out.println();
                     break;
                 }
