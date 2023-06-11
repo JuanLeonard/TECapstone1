@@ -99,7 +99,7 @@ public class VendingMachine {
     }
 
 
-    public boolean sufficentFunds(double purchaseAmount){
+    public boolean sufficientFunds(double purchaseAmount){
         return vendingBalance - purchaseAmount >= 0;
     }
 

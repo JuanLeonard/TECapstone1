@@ -97,6 +97,16 @@ public class VendingMachineCLI {
                 }
 
                 if (purchaseChoice.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)) {
+                    try (Scanner scanner = new Scanner(pathFile)) {
+                        System.out.println();
+                        while (scanner.hasNextLine()) {
+                            String lineOfText = scanner.nextLine();
+                            System.out.println(lineOfText);// display vending machine items
+                        }
+                    } catch (FileNotFoundException e) {
+                        System.out.println(e.getMessage());
+                    }
+                        System.out.println();
                         System.out.print("Please enter slot location using Capital Letters (Ex. A1): ");
                         String userProductChoice = userInput.nextLine();
                         if(!productList.containsKey(userProductChoice)) {
@@ -104,8 +114,7 @@ public class VendingMachineCLI {
                         } else {
                             Product product = productList.get(userProductChoice);//Create a product class instance that use's the user's input to retrieve item info.
                             double itemPrice = product.getPrice();
-                            if(vendingMachine.sufficentFunds(itemPrice)) {
-
+                            if(vendingMachine.sufficientFunds(itemPrice)) {
                                 System.out.println();
                                 System.out.println(product.getName());
                                 System.out.println("$" + String.format("%.2f", product.getPrice()));
