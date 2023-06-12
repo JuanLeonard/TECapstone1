@@ -74,18 +74,13 @@ public class VendingMachineCLI {
                 if (purchaseChoice.equals(PURCHASE_MENU_OPTION_FEED_MONEY)) {
                     System.out.println();
                     try {
-                        System.out.print("Feed money into vending machine using whole numbers (Ex. 1 = $1.00): ");
-                        String userMoney = userInput.nextLine();
-//                        if (userMoney.contains(".")) {
-//                        }
+                        System.out.print("Feed money into vending machine using whole numbers or dollar format (0.00): ");
+                        String userMoney = userInput.nextLine();//Takes in user input as a String
                         Double convertedMoney = Double.parseDouble(userMoney);//Converts String into integer
-//                        if (convertedMoney > 20) {
-//                            System.out.println("ERROR: Exceeds max amount. Enter an amount less than $20.");
-//                        }
-                        vendingMachine.addMoney(convertedMoney);//Adds money to the balance
+                        vendingMachine.addMoney(convertedMoney);//Adds money to the vending balance (Current Money Provided)
                         VMLog.log("FEED MONEY: $" + String.format("%.2f",convertedMoney) + " $" + String.format("%.2f",currentMoneyProvided + convertedMoney));
                     } catch (NumberFormatException e) {
-                        System.out.println("ERROR: WRONG NUMBER FORMAT. Use whole numbers (1 = $1.00)");
+                        System.out.println("ERROR: WRONG NUMBER FORMAT. Use whole numbers or dollar format (0.00).");
                     }
                 }
                 if (purchaseChoice.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)) {
@@ -99,7 +94,7 @@ public class VendingMachineCLI {
                         System.out.println(e.getMessage());
                     }
                         System.out.println();
-                        System.out.print("Please enter slot location using Capital Letters (Ex. A1): ");
+                        System.out.print("Please enter slot code to select an item. Use capital letters (Ex. A1): ");
                         String userProductChoice = userInput.nextLine();
                         if(!productList.containsKey(userProductChoice)) {
                             System.out.println("ERROR: CODE INVALID");

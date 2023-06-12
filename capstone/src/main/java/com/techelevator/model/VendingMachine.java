@@ -77,6 +77,7 @@ public class VendingMachine {
     public void setChange(double change) {
 //        change = vendingBalance - itemTotal;
         double convertThisChange = change * 100;
+        convertThisChange = Math.round(convertThisChange);
         int changeConverted = (int)convertThisChange;
         int quarter = 25;
         int dime = 10;
